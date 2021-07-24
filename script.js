@@ -1,13 +1,58 @@
 const audio = document.querySelector(".audio");
 
+const viewHeight = document.documentElement.clientHeight;
+const viewWidth = document.documentElement.clientWidth;
+
+const bodyBlock = document.querySelector(".complete-wrap");
+
+let topp;
+let bottomm;
+
+if (viewHeight > 700) {
+  topp = (viewHeight - 700) / 2 + "px";
+} else {
+  topp = 10 + "px";
+  bottomm = 10 + "px";
+}
+
+bodyBlock.style.top = topp;
+bodyBlock.style.bottom = bottomm;
+
+const bubble = document.querySelector(".bubble");
+
 const scene = document.querySelector(".scene");
 const cube = document.querySelector(".cube");
 const artcon = document.querySelector(".artcon");
-const coverArt = document.querySelector(".coverart");
-const bubble = document.querySelector(".bubble");
 const floorShadow = document.querySelector(".floor-shadow");
 
 const logo = document.querySelector(".logoImg");
+const socials = document.querySelector(".socials");
+
+let clickk = 0;
+
+logo.onclick = (e) => {
+  if (!clickk) {
+    socials.style.opacity = 1;
+    clickk = 1;
+  } else {
+    socials.style.opacity = 0;
+    clickk = 0;
+  }
+
+  // setTimeout((e) => {
+  //   socials.style.opacity = 0;
+  // }, 3000);
+};
+
+const animList = [logo, scene, cube, artcon, floorShadow];
+
+const animNames = [
+  "imgScl",
+  "sceneRotate",
+  "cubeContract",
+  "artRotate",
+  "artShadow",
+];
 
 const songs = [
   "Resilience(Master).mp3",
@@ -29,25 +74,23 @@ const nextBtn = document.querySelector(".next");
 
 let sonDuration;
 let progress = document.querySelector(".progress");
+let animDelay;
 
 audio.load();
 progress.value = 0.0;
 
 // PLAY AUDIO
 function playFromPrep() {
-  audio.oncanplaythrough = function playSong() {
-    audio.play();
-  };
+  audio.play();
+
+  setTimeout((e) => {
+    animList.forEach((anim) => {
+      anim.style.animationPlayState = "initial";
+    });
+  }, animDelay);
 
   playBtn.classList.add("playin");
   playBtn.classList.remove("notplayin");
-
-  scene.style.animationPlayState = "running";
-  cube.style.animationPlayState = "running";
-  artcon.style.animationPlayState = "running";
-  coverArt.style.animationPlayState = "running";
-  logo.style.animationPlayState = "running";
-  floorShadow.style.animationPlayState = "running";
 }
 
 const resi = document.querySelector(".resilience");
@@ -61,7 +104,12 @@ let curSon = document.querySelector(".current-song");
 btnVisib(curSon);
 
 function prepFromTitle(song) {
-  if (!audio.paused) audio.pause();
+  if (!audio.paused) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+
+  audio.src = "";
 
   curSon.classList.remove("current-song");
 
@@ -69,7 +117,6 @@ function prepFromTitle(song) {
   curSon = song;
 
   audio.src = "./audio/" + songs[song.id];
-  audio.load();
 
   btnVisib(curSon);
 
@@ -134,33 +181,33 @@ playBtn.addEventListener("click", function playClick() {
     audio.pause();
     playBtn.classList.add("notplayin");
     playBtn.classList.remove("playin");
-    scene.style.animationPlayState = "paused";
-    cube.style.animationPlayState = "paused";
-    artcon.style.animationPlayState = "paused";
-    coverArt.style.animationPlayState = "paused";
-    logo.style.animationPlayState = "paused";
-    floorShadow.style.animationPlayState = "paused";
+
+    animList.forEach((anim) => {
+      anim.style.animationPlayState = "paused";
+    });
   } else {
     audio.play();
     playBtn.classList.add("playin");
     playBtn.classList.remove("notplayin");
 
-    scene.style.animationPlayState = "running";
-    cube.style.animationPlayState = "running";
-    artcon.style.animationPlayState = "running";
-    coverArt.style.animationPlayState = "running";
-    logo.style.animationPlayState = "running";
-    floorShadow.style.animationPlayState = "running";
+    animList.forEach((anim) => {
+      anim.style.animationPlayState = "running";
+    });
   }
 });
 
+audio.addEventListener("playing", (e) => {
+  animList.forEach((anim) => {
+    anim.style.animationPlayState = "running";
+  });
+  playBtn.classList.add("playin");
+  playBtn.classList.remove("notplayin");
+});
+
 audio.addEventListener("ended", function stopAnim() {
-  scene.style.animationPlayState = "paused";
-  cube.style.animationPlayState = "paused";
-  artcon.style.animationPlayState = "paused";
-  coverArt.style.animationPlayState = "paused";
-  logo.style.animationPlayState = "paused";
-  floorShadow.style.animationPlayState = "paused";
+  animList.forEach((anim) => {
+    anim.style.animationPlayState = "paused";
+  });
 
   playBtn.classList.add("notplayin");
   playBtn.classList.remove("playin");
@@ -270,17 +317,11 @@ audio.addEventListener("loadeddata", function () {
 
   document.documentElement.style.setProperty("--rotateSpeed", `${rotatey}s`);
 
-  cube.style.animationDelay = `${sonOffset}s`;
-  artcon.style.animationDelay = `${sonOffset}s`;
-  coverArt.style.animationDelay = `${sonOffset}s`;
-  logo.style.animationDelay = `${sonOffset}s`;
-  floorShadow.style.animationDelay = `${sonOffset}s`;
+  animDelay = sonOffset * 1000;
 
-  cube.style.animationIterationCount = bpm * bounceDur;
-  artcon.style.animationIterationCount = bpm * bounceDur;
-  coverArt.style.animationIterationCount = bpm * bounceDur;
-  logo.style.animationIterationCount = bpm * bounceDur;
-  floorShadow.style.animationIterationCount = bpm * bounceDur;
+  animList.forEach((anim) => {
+    anim.style.animationIterationCount = bpm * bounceDur;
+  });
 });
 
 audio.addEventListener("timeupdate", function updateProgress() {

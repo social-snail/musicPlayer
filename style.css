@@ -121,6 +121,7 @@ body {
 
 .icon {
   filter: grayscale(0.3);
+  cursor: auto;
 }
 
 .icon:hover {
@@ -443,12 +444,14 @@ h1 {
 }
 
 @keyframes cubeContract {
-  0%,
-  100% {
+  0% {
+    transform: scale(1);
+  }
+  5% {
     transform: scaleY(0.7);
   }
-  15%,
-  90% {
+  20%,
+  100% {
     transform: scaleY(1);
   }
 }

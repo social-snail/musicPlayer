@@ -38,10 +38,6 @@ logo.onclick = (e) => {
     socials.style.opacity = 0;
     clickk = 0;
   }
-
-  // setTimeout((e) => {
-  //   socials.style.opacity = 0;
-  // }, 3000);
 };
 
 const animList = [logo, scene, cube, artcon, floorShadow];
@@ -62,7 +58,7 @@ const songs = [
 ];
 
 const bpms = [
-  [0.6, 137, 105, 2, 8],
+  [0.5, 137, 105, 2, 4],
   [0, 0, 175, 2, 4],
   [0, 0, 140, 2, 2],
   [1.571, 195, 155, 4, 8],
@@ -81,13 +77,11 @@ progress.value = 0.0;
 
 // PLAY AUDIO
 function playFromPrep() {
-  audio.play();
+  animList.forEach((anim) => {
+    anim.style.animationPlayState = "running";
+  });
 
-  setTimeout((e) => {
-    animList.forEach((anim) => {
-      anim.style.animationPlayState = "initial";
-    });
-  }, animDelay);
+  audio.play();
 
   playBtn.classList.add("playin");
   playBtn.classList.remove("notplayin");
@@ -106,14 +100,12 @@ btnVisib(curSon);
 function prepFromTitle(song) {
   if (!audio.paused) {
     audio.pause();
-    audio.currentTime = 0;
   }
-
-  audio.src = "";
 
   curSon.classList.remove("current-song");
 
   song.classList.add("current-song");
+
   curSon = song;
 
   audio.src = "./audio/" + songs[song.id];
@@ -125,22 +117,22 @@ function prepFromTitle(song) {
 
 resi.addEventListener("click", function strSong() {
   prepFromTitle(resi);
-  playFromPrep();
+  setTimeout(playFromPrep, 50);
 });
 
 pati.addEventListener("click", function strSong() {
   prepFromTitle(pati);
-  playFromPrep();
+  setTimeout(playFromPrep, 50);
 });
 
 joy.addEventListener("click", function strSong() {
   prepFromTitle(joy);
-  playFromPrep();
+  setTimeout(playFromPrep, 50);
 });
 
 recu.addEventListener("click", function strSong() {
   prepFromTitle(recu);
-  playFromPrep();
+  setTimeout(playFromPrep, 50);
 });
 
 // NAV BUTTON INTERFACE
@@ -197,9 +189,6 @@ playBtn.addEventListener("click", function playClick() {
 });
 
 audio.addEventListener("playing", (e) => {
-  animList.forEach((anim) => {
-    anim.style.animationPlayState = "running";
-  });
   playBtn.classList.add("playin");
   playBtn.classList.remove("notplayin");
 });

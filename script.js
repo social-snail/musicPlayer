@@ -51,7 +51,7 @@ const colorVals = [
   "#fffc",
   "palevioletred",
   "rgb(223, 156, 156)",
-  "#eeb3b9",
+  "rgb(238,179,185)",
   "rgb(241, 158, 172)",
   "1",
   "#fff3",
@@ -73,7 +73,7 @@ const darkVals = [
   "#fff7",
   "rgb(247, 193, 211)",
   "rgb(230, 221, 221)",
-  "#864a4f",
+  "rgb(134,74,79)",
   "rgb(173, 95, 108)",
   "0.8",
   "#fff2",
@@ -180,7 +180,7 @@ progress.value = 0.0;
 function playFromPrep() {
   setTimeout((e) => {
     audio.play();
-  }, 530);
+  }, 550);
 
   setTimeout((e) => {
     animList.forEach((anim) => {
@@ -223,7 +223,7 @@ function prepFromTitle(song) {
     btnVisib(curSon);
 
     progress.value = 0.0;
-  }, 200);
+  }, 50);
 }
 
 resi.addEventListener("click", function strSong() {
@@ -270,13 +270,13 @@ function btnVisib(curSon) {
 prevBtn.addEventListener("click", function prevPrep() {
   let prevSon = curSon.previousElementSibling;
   prepFromTitle(prevSon);
-  playFromPrep();
+  setTimeout(playFromPrep, 50);
 });
 
 nextBtn.addEventListener("click", function nextPrep() {
   let nextSon = curSon.nextElementSibling;
   prepFromTitle(nextSon);
-  playFromPrep();
+  setTimeout(playFromPrep, 50);
 });
 
 playBtn.addEventListener("click", function playClick() {
@@ -358,7 +358,7 @@ function alterTime(xLoc) {
 
     let progBarr = progFactor * 100;
 
-    progress.style.background = `linear-gradient(to right, orange ${progBarr}%, white ${progBarr}%)`;
+    progress.style.background = `linear-gradient(to right, var(--progBarColor) ${progBarr}%, white ${progBarr}%)`;
   } else if (xLoc < 0) {
     audio.currentTime = 0;
   } else {
@@ -461,7 +461,7 @@ audio.addEventListener("timeupdate", function updateProgress() {
 
   let now = ((curSec / sonDuration) * 100).toFixed(2);
 
-  progress.style.background = `linear-gradient(to right, #eeb3b9  ${now}%, white ${now}%)`;
+  progress.style.background = `linear-gradient(to right, var(--progBarColor)  ${now}%, white ${now}%)`;
   progress.value = now;
 
   let displaySec = String(((curSec % 60) / 100).toFixed(2));

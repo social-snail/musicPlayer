@@ -2,7 +2,33 @@
   --boxColor: rgba(235, 224, 224, 0.699);
   --rotateSpeed: 10s;
   --bounceSpeed: 2s;
-  --coolRed: rgb(211, 46, 73);
+
+  --bodyColor: rgb(245, 147, 163);
+  --bodyColorSecond: #fff;
+
+  --completeWrapBack: rgb(211, 46, 73);
+  --completeWrapFirst: rgba(245, 214, 214, 0.8);
+  --completeWrapSecond: rgb(214, 80, 102);
+
+  --socialCover: rgb(238, 183, 183);
+
+  --toggleHouseBorder: rgb(218, 136, 136);
+  --toggleHouseColor: #fffc;
+  --toggleRoundBorder: palevioletred;
+  --toggleRoundColor: rgb(223, 156, 156);
+
+  --progBarColor: #eeb3b9;
+  --progThumbColor: rgb(241, 158, 172);
+
+  --cubeBright: 1;
+
+  --currentSongBack: #fff3;
+  --currentSongColor: rgb(156, 79, 79);
+  --currentSongPin: rgb(223, 156, 156);
+
+  --floorGradFirst: rgb(238, 139, 139);
+  --floorGradSecond: rgb(243, 188, 188);
+  --floorRadialGrad: rgb(255, 235, 235);
 }
 
 * {
@@ -21,7 +47,10 @@ body {
 }
 
 .body-wrap {
-  background-image: linear-gradient(rgb(245, 147, 163), #fff 100%);
+  background-image: linear-gradient(
+    var(--bodyColor),
+    var(--bodyColorSecond) 100%
+  );
   background-repeat: no-repeat;
   height: 100%;
   min-height: 768px;
@@ -42,10 +71,10 @@ body {
   max-height: 700px;
   margin: auto;
   border-radius: 40px 10px;
-  background-color: rgb(211, 46, 73);
+  background-color: var(--completeWrapBack);
   background-image: linear-gradient(
-    rgba(245, 214, 214, 0.8) 50%,
-    rgb(214, 80, 102)
+    var(--completeWrapFirst) 50%,
+    var(--completeWrapSecond)
   );
   box-shadow: 2px 2px 12px 1px #0004;
   position: absolute;
@@ -84,8 +113,8 @@ body {
   height: 90%;
   margin: auto;
   margin-bottom: 5%;
-  box-shadow: 0.2em 0.2em 0.15em #0006, -0.01em -0.01em 0.04em 0.02em #fff;
-  border-radius: 10px 5px;
+  box-shadow: 0.1em 0.1em 0.2em #0006, -0.01em -0.01em 0.04em 0.02em #fff;
+  border-radius: 7px;
   animation-name: imgScl;
   animation-duration: var(--bounceSpeed);
   animation-timing-function: linear;
@@ -106,13 +135,55 @@ body {
   }
 }
 
+.toggle {
+  width: 10%;
+  height: 2.3%;
+  position: absolute;
+  right: 10%;
+  top: 4.5%;
+  border-radius: 20px;
+}
+
+.toggle-house input[type="checkbox"] {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.toggle-house {
+  position: absolute;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border: 1.5px solid var(--toggleHouseBorder);
+  background-color: var(--toggleHouseColor);
+  transition: 0.4s;
+  border-radius: 20px;
+  box-shadow: 1px 1px 3px #0004;
+}
+
+.toggle-round {
+  position: absolute;
+  width: 58%;
+  height: 140%;
+  border: 1.5px solid var(--toggleRoundBorder);
+  top: -19%;
+  left: -5%;
+  border-radius: 50%;
+  background-color: var(--toggleRoundColor);
+  transition: 0.4s;
+  box-shadow: 1px 1px 3px #0004;
+}
+
 .social-cover {
   width: 50%;
   height: 6%;
   position: absolute;
   z-index: 20;
   top: 3%;
-  background-color: rgb(238, 183, 183);
+  background-color: var(--socialCover);
 }
 
 .socials {
@@ -120,12 +191,12 @@ body {
   width: 40%;
   height: 5%;
   position: absolute;
-  border-radius: 10px 2px;
-  box-shadow: 0.2em 0.2em 0.15em #0006, -0.01em -0.01em 0.04em 0.02em #fff;
+  border-radius: 10px;
+  box-shadow: 0.1em 0.1em 0.15em #0006, -0.01em -0.01em 0.04em 0.02em #fff;
   z-index: 10;
   top: 3%;
   opacity: 0;
-  transition: opacity 0.6s ease, top 0.6s ease;
+  transition: opacity 0.9s ease, top 0.9s ease;
   justify-content: space-between;
 }
 
@@ -135,7 +206,7 @@ body {
   width: 24%;
   height: 95%;
   border-radius: 50%;
-  box-shadow: 0.1em 0.1em 0.15em #0006, -0.01em -0.01em 0.04em 0.02em #fff;
+  box-shadow: 0.01em 0.01em 0.2em #0006, -0.01em -0.01em 0.04em 0.02em #fff;
 }
 
 .icons:nth-child(1) {
@@ -197,7 +268,7 @@ body {
   outline: none;
   border-radius: 5px 0;
   cursor: pointer;
-  background: linear-gradient(to right, eeb3b9 0%, white 0%);
+  background: linear-gradient(to right, var(--progBarColor) 0%, white 0%);
   box-shadow: 0.1em 0.15em 0.2em #0008, -0.05em -0.05em 0.1em 0.03em #fff;
 }
 
@@ -213,7 +284,7 @@ body {
   border-radius: 50%;
   appearance: none;
   cursor: pointer;
-  background-color: rgb(241, 158, 172);
+  background-color: var(--progThumbColor);
   border: 1.3px dotted #fff;
   box-shadow: 0.1em 0.15em 0.2em #0006, -0.03em -0.03em 0.05em 0.03em #fff;
 }
@@ -372,8 +443,8 @@ h1 {
 }
 
 .current-song {
-  background-color: #fff3;
-  color: rgb(156, 79, 79);
+  background-color: var(--currentSongBack);
+  color: var(--currentSongColor);
 }
 
 .current-song::before {
@@ -381,7 +452,7 @@ h1 {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: rgb(223, 156, 156);
+  background-color: var(--currentSongPin);
   margin-left: 10px;
   box-shadow: 0.2em 0.2em 0.4em #0008, -0.05em -0.05em 0.1em 0.03em #fff;
 }
@@ -541,6 +612,7 @@ h1 {
   margin: 0.24em;
   border-radius: 1px;
   border: 1px solid #fff5;
+  filter: brightness(var(--cubeBright));
 }
 
 .cfront,
@@ -582,11 +654,11 @@ h1 {
 .floor {
   width: 2.2em;
   height: 2.2em;
-  background-image: radial-gradient(#fff2, rgb(255, 235, 235)),
+  background-image: radial-gradient(#fff2, var(--floorRadialGrad)),
     repeating-conic-gradient(
       from 45deg,
-      rgb(238, 139, 139) 0deg 90deg,
-      rgb(243, 188, 188) 90deg 180deg
+      var(--floorGradFirst) 0deg 90deg,
+      var(--floorGradSecond) 90deg 180deg
     );
 
   background-size: 100%, 0.6em 0.6em;

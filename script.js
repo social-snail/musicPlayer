@@ -18,6 +18,102 @@ if (viewHeight > 700) {
 bodyBlock.style.top = topp;
 bodyBlock.style.bottom = bottomm;
 
+const colorKeys = [
+  "--bodyColor",
+  "--bodyColorSecond",
+  "--completeWrapBack",
+  "--completeWrapFirst",
+  "--completeWrapSecond",
+  "--socialCover",
+  "--toggleHouseBorder",
+  "--toggleHouseColor",
+  "--toggleRoundBorder",
+  "--toggleRoundColor",
+  "--progBarColor",
+  "--progThumbColor",
+  "--cubeBright",
+  "--currentSongBack",
+  "--currentSongColor",
+  "--currentSongPin",
+  "--floorGradFirst",
+  "--floorGradSecond",
+  "--floorRadialGrad",
+];
+
+const colorVals = [
+  "rgb(245, 147, 163)",
+  "#fff",
+  "rgb(211, 46, 73)",
+  "rgba(245, 214, 214, 0.8)",
+  "rgb(214, 80, 102)",
+  "rgb(238, 183, 183)",
+  "rgb(218, 136, 136)",
+  "#fffc",
+  "palevioletred",
+  "rgb(223, 156, 156)",
+  "#eeb3b9",
+  "rgb(241, 158, 172)",
+  "1",
+  "#fff3",
+  "rgb(156, 79, 79)",
+  "rgb(223, 156, 156)",
+  "rgb(238, 139, 139)",
+  "rgb(243, 188, 188)",
+  "rgb(255, 235, 235)",
+];
+
+const darkVals = [
+  "rgb(0, 0, 0)",
+  "rgb(68, 16, 26)",
+  "rgb(61, 6, 16)",
+  "rgba(105, 54, 54, 0.8)",
+  "rgb(48, 5, 13)",
+  "rgb(95, 42, 42)",
+  "rgb(241, 202, 202)",
+  "#fff7",
+  "rgb(247, 193, 211)",
+  "rgb(230, 221, 221)",
+  "#864a4f",
+  "rgb(173, 95, 108)",
+  "0.8",
+  "#fff2",
+  "rgb(223, 156, 156)",
+  "rgb(223, 156, 156)",
+  "rgb(107, 24, 24)",
+  "rgb(117, 62, 62)",
+  "rgb(145, 97, 97)",
+];
+
+let lightObj = {};
+let darkObj = {};
+
+colorKeys.forEach((key, index) => (lightObj[key] = colorVals[index]));
+colorKeys.forEach((key, index) => (darkObj[key] = darkVals[index]));
+
+const toggle = document.querySelector("#darkmode");
+const toggleHouse = document.querySelector(".toggle-house");
+const toggleRound = document.querySelector(".toggle-round");
+
+let dark = false;
+
+toggle.onclick = (e) => {
+  dark = toggle.checked;
+
+  if (dark) {
+    toggleRound.style.left = "60%";
+
+    Object.keys(darkObj).forEach((key) => {
+      document.documentElement.style.setProperty(key, darkObj[key]);
+    });
+  } else {
+    toggleRound.style.left = "";
+
+    Object.keys(lightObj).forEach((key) => {
+      document.documentElement.style.setProperty(key, lightObj[key]);
+    });
+  }
+};
+
 const bubble = document.querySelector(".bubble");
 
 const scene = document.querySelector(".scene");
@@ -84,13 +180,13 @@ progress.value = 0.0;
 function playFromPrep() {
   setTimeout((e) => {
     audio.play();
-  }, 210);
+  }, 530);
 
   setTimeout((e) => {
     animList.forEach((anim) => {
       anim.style.animationPlayState = "running";
     });
-  }, animDelay + 210);
+  }, animDelay + 170);
 
   playBtn.classList.add("playin");
   playBtn.classList.remove("notplayin");

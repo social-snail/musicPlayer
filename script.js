@@ -27,16 +27,19 @@ const floorShadow = document.querySelector(".floor-shadow");
 
 const logo = document.querySelector(".logoImg");
 const socials = document.querySelector(".socials");
+const icons = document.querySelector(".icons");
 
 let clickk = 0;
 
 logo.onclick = (e) => {
   if (!clickk) {
-    socials.style.opacity = 1;
     clickk = 1;
+    socials.style.opacity = 1;
+    icons.style.cursor = "pointer";
   } else {
-    socials.style.opacity = 0;
     clickk = 0;
+    socials.style.opacity = 0;
+    icons.style.cursor = "auto";
   }
 };
 
@@ -205,29 +208,34 @@ audio.addEventListener("ended", function stopAnim() {
 function alterTime(xLoc) {
   let width = progress.clientWidth;
 
-  let progFactor = xLoc / width;
-  let bubbleFactor = progFactor * 100;
-  let subFactor = (14 / width) * 100;
-  bubble.style.left = bubbleFactor - subFactor + "%";
-  bubble.style.opacity = "1";
-  setTimeout((e) => {
-    bubble.style.opacity = "0";
-  }, 1000);
+  console.log(xLoc);
+  console.log(width);
 
-  let curTime = progFactor * sonDuration;
+  if (xLoc < width && xLoc > 0) {
+    let progFactor = xLoc / width;
+    let bubbleFactor = progFactor * 100;
+    let subFactor = (14 / width) * 100;
+    bubble.style.left = bubbleFactor - subFactor + "%";
+    bubble.style.opacity = "1";
+    setTimeout((e) => {
+      bubble.style.opacity = "0";
+    }, 1000);
 
-  let curSec = Math.floor(curTime);
-  let curMin = Math.floor(curSec / 60);
+    let curTime = progFactor * sonDuration;
 
-  let displaySec = String(((curSec % 60) / 100).toFixed(2));
+    let curSec = Math.floor(curTime);
+    let curMin = Math.floor(curSec / 60);
 
-  bubble.innerHTML = curMin + ":" + displaySec[2] + displaySec[3];
+    let displaySec = String(((curSec % 60) / 100).toFixed(2));
 
-  audio.currentTime = curTime;
+    bubble.innerHTML = curMin + ":" + displaySec[2] + displaySec[3];
 
-  let progBarr = progFactor * 100;
+    audio.currentTime = curTime;
 
-  progress.style.background = `linear-gradient(to right, orange ${progBarr}%, white ${progBarr}%)`;
+    let progBarr = progFactor * 100;
+
+    progress.style.background = `linear-gradient(to right, orange ${progBarr}%, white ${progBarr}%)`;
+  }
 }
 
 function changePos(e) {

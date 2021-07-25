@@ -108,49 +108,44 @@ body {
 
 .socials {
   display: flex;
-  width: 50%;
+  width: 40%;
   height: 5%;
   position: absolute;
   border-radius: 10px 2px;
   box-shadow: 0.2em 0.2em 0.15em #0006, -0.01em -0.01em 0.04em 0.02em #fff;
   z-index: 10;
   top: 10%;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.5s ease;
+  justify-content: space-between;
 }
 
-.icon {
+.icons {
   filter: grayscale(0.3);
   cursor: auto;
+  width: 24%;
+  height: 95%;
+  border-radius: 50%;
+  box-shadow: 0.1em 0.1em 0.15em #0006, -0.01em -0.01em 0.04em 0.02em #fff;
 }
 
-.icon:hover {
+.icons:nth-child(1) {
+  margin-left: 5%;
+}
+
+.icons:nth-child(3) {
+  margin-right: 5%;
+}
+
+.icons:hover {
   transform: scale(1.1);
 }
-.icon:active {
+.icons:active {
   transform: scale(1.1);
 }
 
-.youtube {
-  width: 33%;
-  background-image: url("./icons/youtube.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-.soundcloud {
-  width: 33%;
-  background-image: url("./icons/soundcloud.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-.spotify {
-  width: 33%;
-  background-image: url("./icons/spotify.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+.icons a img {
+  width: 100%;
 }
 
 .player-container {

@@ -35,10 +35,12 @@ logo.onclick = (e) => {
   if (!clickk) {
     clickk = 1;
     socials.style.opacity = 1;
+    socials.style.top = "10%";
     icons.style.cursor = "pointer";
   } else {
     clickk = 0;
     socials.style.opacity = 0;
+    socials.style.top = "3%";
     icons.style.cursor = "auto";
   }
 };
@@ -61,10 +63,10 @@ const songs = [
 ];
 
 const bpms = [
-  [0.5, 137, 105, 2, 4],
+  [0.5, 137, 105, 2, 8],
   [0, 0, 175, 2, 4],
   [0, 0, 140, 2, 2],
-  [1.571, 195, 155, 4, 8],
+  [0.571, 195, 155, 4, 8],
 ];
 
 const prevBtn = document.querySelector(".prev");
@@ -80,11 +82,15 @@ progress.value = 0.0;
 
 // PLAY AUDIO
 function playFromPrep() {
-  animList.forEach((anim) => {
-    anim.style.animationPlayState = "running";
-  });
+  setTimeout((e) => {
+    audio.play();
+  }, 210);
 
-  audio.play();
+  setTimeout((e) => {
+    animList.forEach((anim) => {
+      anim.style.animationPlayState = "running";
+    });
+  }, animDelay + 210);
 
   playBtn.classList.add("playin");
   playBtn.classList.remove("notplayin");
@@ -105,17 +111,23 @@ function prepFromTitle(song) {
     audio.pause();
   }
 
-  curSon.classList.remove("current-song");
+  setTimeout((e) => {
+    animList.forEach((anim) => {
+      anim.style.animationPlayState = "paused";
+    });
 
-  song.classList.add("current-song");
+    curSon.classList.remove("current-song");
 
-  curSon = song;
+    song.classList.add("current-song");
 
-  audio.src = "./audio/" + songs[song.id];
+    curSon = song;
 
-  btnVisib(curSon);
+    audio.src = "./audio/" + songs[song.id];
 
-  progress.value = 0.0;
+    btnVisib(curSon);
+
+    progress.value = 0.0;
+  }, 200);
 }
 
 resi.addEventListener("click", function strSong() {
@@ -201,6 +213,25 @@ audio.addEventListener("ended", function stopAnim() {
     anim.style.animationPlayState = "paused";
   });
 
+  let avoid = false;
+
+  setTimeout((e) => {
+    let targ;
+
+    if (!(curSon.id == 3)) {
+      targ = curSon.nextElementSibling;
+      prepFromTitle(targ);
+    } else {
+      avoid = true;
+    }
+  }, 1000);
+
+  setTimeout((e) => {
+    if (!avoid) {
+      playFromPrep();
+    }
+  }, 2000);
+
   playBtn.classList.add("notplayin");
   playBtn.classList.remove("playin");
 });
@@ -208,10 +239,7 @@ audio.addEventListener("ended", function stopAnim() {
 function alterTime(xLoc) {
   let width = progress.clientWidth;
 
-  console.log(xLoc);
-  console.log(width);
-
-  if (xLoc < width && xLoc > 0) {
+  if (xLoc <= width && xLoc >= 0) {
     let progFactor = xLoc / width;
     let bubbleFactor = progFactor * 100;
     let subFactor = (14 / width) * 100;
@@ -235,6 +263,10 @@ function alterTime(xLoc) {
     let progBarr = progFactor * 100;
 
     progress.style.background = `linear-gradient(to right, orange ${progBarr}%, white ${progBarr}%)`;
+  } else if (xLoc < 0) {
+    audio.currentTime = 0;
+  } else {
+    audio.currentTime = audio.duration;
   }
 }
 
@@ -264,20 +296,22 @@ function mouseMover(e) {
   let xLoc = e.offsetX;
   let width = progress.clientWidth;
 
-  let progFactor = xLoc / width;
-  let bubbleFactor = progFactor * 100;
-  let subFactor = (14 / width) * 100;
-  bubble.style.left = bubbleFactor - subFactor + "%";
-  bubble.style.opacity = "1";
+  if (xLoc <= width && xLoc >= 0) {
+    let progFactor = xLoc / width;
+    let bubbleFactor = progFactor * 100;
+    let subFactor = (14 / width) * 100;
+    bubble.style.left = bubbleFactor - subFactor + "%";
+    bubble.style.opacity = "1";
 
-  let curTime = progFactor * sonDuration;
+    let curTime = progFactor * sonDuration;
 
-  let curSec = Math.floor(curTime);
-  let curMin = Math.floor(curSec / 60);
+    let curSec = Math.floor(curTime);
+    let curMin = Math.floor(curSec / 60);
 
-  let displaySec = String(((curSec % 60) / 100).toFixed(2));
+    let displaySec = String(((curSec % 60) / 100).toFixed(2));
 
-  bubble.innerHTML = curMin + ":" + displaySec[2] + displaySec[3];
+    bubble.innerHTML = curMin + ":" + displaySec[2] + displaySec[3];
+  }
 }
 
 audio.addEventListener("loadeddata", function () {

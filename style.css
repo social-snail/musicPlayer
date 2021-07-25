@@ -106,6 +106,15 @@ body {
   }
 }
 
+.social-cover {
+  width: 50%;
+  height: 6%;
+  position: absolute;
+  z-index: 20;
+  top: 3%;
+  background-color: rgb(238, 183, 183);
+}
+
 .socials {
   display: flex;
   width: 40%;
@@ -114,14 +123,14 @@ body {
   border-radius: 10px 2px;
   box-shadow: 0.2em 0.2em 0.15em #0006, -0.01em -0.01em 0.04em 0.02em #fff;
   z-index: 10;
-  top: 10%;
-  opacity: 1;
-  transition: opacity 0.5s ease;
+  top: 3%;
+  opacity: 0;
+  transition: opacity 0.6s ease, top 0.6s ease;
   justify-content: space-between;
 }
 
 .icons {
-  filter: grayscale(0.3);
+  filter: grayscale(0.4);
   cursor: auto;
   width: 24%;
   height: 95%;
@@ -443,7 +452,7 @@ h1 {
     transform: scale(1);
   }
   5% {
-    transform: scaleY(0.7);
+    transform: scaleY(0.8);
   }
   20%,
   100% {

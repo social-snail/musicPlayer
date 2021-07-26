@@ -3,14 +3,16 @@
   --rotateSpeed: 10s;
   --bounceSpeed: 2s;
 
-  --bodyColor: rgb(245, 147, 163);
+  --bodyColor: rgb(170, 122, 158);
   --bodyColorSecond: #fff;
 
-  --completeWrapBack: rgb(211, 46, 73);
-  --completeWrapFirst: rgba(245, 214, 214, 0.8);
-  --completeWrapSecond: rgb(214, 80, 102);
+  --completeWrapBack: rgb(143, 119, 156);
+  --completeWrapFirst: rgba(135, 87, 148, 0.555);
+  --completeWrapSecond: rgb(209, 144, 188);
 
-  --socialCover: rgb(238, 183, 183);
+  --logoColor: rgb(214, 170, 170);
+
+  --socialCover: rgb(133, 103, 150);
 
   --toggleHouseBorder: rgb(218, 136, 136);
   --toggleHouseColor: #fffc;
@@ -23,7 +25,7 @@
   --cubeBright: 1;
 
   --currentSongBack: #fff3;
-  --currentSongColor: rgb(156, 79, 79);
+  --currentSongColor: rgb(238, 199, 199);
   --currentSongPin: rgb(223, 156, 156);
 
   --floorGradFirst: rgb(238, 139, 139);
@@ -109,6 +111,12 @@ body {
 }
 
 .logoImg {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  text-align: center;
+  font-size: 20px;
+  padding-top: 8%;
+  color: var(--logoColor);
   width: 90%;
   height: 90%;
   margin: auto;
@@ -192,12 +200,14 @@ body {
   height: 5%;
   position: absolute;
   border-radius: 10px;
-  box-shadow: 0.1em 0.1em 0.15em #0006, -0.01em -0.01em 0.04em 0.02em #fff;
+  box-shadow: 0.1em 0.1em 0.1em #0006, -0.008em -0.001em 0.001em 0.01em #fff;
   z-index: 10;
   top: 3%;
   opacity: 0;
   transition: opacity 0.9s ease, top 0.9s ease;
   justify-content: space-between;
+  padding-top: 0.5%;
+  background-color: #fffa;
 }
 
 .icons {

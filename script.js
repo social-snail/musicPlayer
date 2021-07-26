@@ -24,6 +24,7 @@ const colorKeys = [
   "--completeWrapBack",
   "--completeWrapFirst",
   "--completeWrapSecond",
+  "--logoColor",
   "--socialCover",
   "--toggleHouseBorder",
   "--toggleHouseColor",
@@ -41,12 +42,13 @@ const colorKeys = [
 ];
 
 const colorVals = [
-  "rgb(245, 147, 163)",
+  "rgb(170, 122, 158)",
   "#fff",
-  "rgb(211, 46, 73)",
-  "rgba(245, 214, 214, 0.8)",
-  "rgb(214, 80, 102)",
-  "rgb(238, 183, 183)",
+  "rgb(143, 119, 156)",
+  "rgba(135, 87, 148, 0.555)",
+  "rgb(209, 144, 188)",
+  "rgb(214, 170, 170)",
+  "rgb(133, 103, 150)",
   "rgb(218, 136, 136)",
   "#fffc",
   "palevioletred",
@@ -55,7 +57,7 @@ const colorVals = [
   "rgb(241, 158, 172)",
   "1",
   "#fff3",
-  "rgb(156, 79, 79)",
+  "rgb(238, 199, 199)",
   "rgb(223, 156, 156)",
   "rgb(238, 139, 139)",
   "rgb(243, 188, 188)",
@@ -64,24 +66,25 @@ const colorVals = [
 
 const darkVals = [
   "rgb(0, 0, 0)",
-  "rgb(68, 16, 26)",
-  "rgb(61, 6, 16)",
-  "rgba(105, 54, 54, 0.8)",
-  "rgb(48, 5, 13)",
-  "rgb(95, 42, 42)",
+  "rgb(82, 56, 75)",
+  "rgb(75, 17, 94)",
+  "rgba(104, 95, 107, 0.555)",
+  "rgb(66, 42, 59)",
+  "rgb(214, 170, 170)",
+  "rgb(87, 60, 102)",
   "rgb(241, 202, 202)",
   "#fff7",
   "rgb(247, 193, 211)",
   "rgb(230, 221, 221)",
-  "rgb(134,74,79)",
+  "rgb(133, 89, 118))",
   "rgb(173, 95, 108)",
   "0.8",
   "#fff2",
   "rgb(223, 156, 156)",
   "rgb(223, 156, 156)",
-  "rgb(107, 24, 24)",
-  "rgb(117, 62, 62)",
-  "rgb(145, 97, 97)",
+  "rgb(119, 71, 105)",
+  "rgb(173, 109, 170)",
+  "rgb(49, 47, 47)",
 ];
 
 let lightObj = {};
@@ -141,6 +144,13 @@ logo.onclick = (e) => {
     socials.style.top = "3%";
     icons.style.cursor = "auto";
   }
+
+  setTimeout((e) => {
+    clickk = 0;
+    socials.style.opacity = 0;
+    socials.style.top = "3%";
+    icons.style.cursor = "auto";
+  }, 6000);
 };
 
 const animList = [logo, scene, cube, artcon, floorShadow];

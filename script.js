@@ -95,9 +95,11 @@ const toggleHouse = document.querySelector(".toggle-house");
 const toggleRound = document.querySelector(".toggle-round");
 
 let dark = false;
+const elements = document.querySelector(".body-wrap");
 
 toggle.onclick = (e) => {
   dark = toggle.checked;
+  elements.style.transition = "3s ease";
 
   if (dark) {
     toggleRound.style.left = "60%";
@@ -179,17 +181,15 @@ progress.value = 0.0;
 // PLAY AUDIO
 function playFromPrep() {
   setTimeout((e) => {
-    audio.play();
-  }, 550);
-
-  setTimeout((e) => {
     animList.forEach((anim) => {
       anim.style.animationPlayState = "running";
     });
-  }, animDelay + 170);
 
-  playBtn.classList.add("playin");
-  playBtn.classList.remove("notplayin");
+    audio.play();
+
+    playBtn.classList.add("playin");
+    playBtn.classList.remove("notplayin");
+  }, 30);
 }
 
 const resi = document.querySelector(".resilience");
@@ -208,10 +208,6 @@ function prepFromTitle(song) {
   }
 
   setTimeout((e) => {
-    animList.forEach((anim) => {
-      anim.style.animationPlayState = "paused";
-    });
-
     curSon.classList.remove("current-song");
 
     song.classList.add("current-song");
@@ -223,27 +219,27 @@ function prepFromTitle(song) {
     btnVisib(curSon);
 
     progress.value = 0.0;
-  }, 50);
+  }, 10);
 }
 
 resi.addEventListener("click", function strSong() {
   prepFromTitle(resi);
-  setTimeout(playFromPrep, 50);
+  playFromPrep();
 });
 
 pati.addEventListener("click", function strSong() {
   prepFromTitle(pati);
-  setTimeout(playFromPrep, 50);
+  playFromPrep();
 });
 
 joy.addEventListener("click", function strSong() {
   prepFromTitle(joy);
-  setTimeout(playFromPrep, 50);
+  playFromPrep();
 });
 
 recu.addEventListener("click", function strSong() {
   prepFromTitle(recu);
-  setTimeout(playFromPrep, 50);
+  playFromPrep();
 });
 
 // NAV BUTTON INTERFACE
@@ -268,15 +264,30 @@ function btnVisib(curSon) {
 }
 
 prevBtn.addEventListener("click", function prevPrep() {
+  if (!audio.paused) {
+    audio.pause();
+  }
+
+  playBtn.classList.add("notplayin");
+  playBtn.classList.remove("playin");
+
   let prevSon = curSon.previousElementSibling;
   prepFromTitle(prevSon);
-  setTimeout(playFromPrep, 50);
+  playFromPrep();
 });
 
 nextBtn.addEventListener("click", function nextPrep() {
+  if (!audio.paused) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+
+  playBtn.classList.add("notplayin");
+  playBtn.classList.remove("playin");
+
   let nextSon = curSon.nextElementSibling;
   prepFromTitle(nextSon);
-  setTimeout(playFromPrep, 50);
+  playFromPrep();
 });
 
 playBtn.addEventListener("click", function playClick() {
@@ -300,8 +311,21 @@ playBtn.addEventListener("click", function playClick() {
 });
 
 audio.addEventListener("playing", (e) => {
+  animList.forEach((anim) => {
+    anim.style.animationPlayState = "running";
+  });
+
   playBtn.classList.add("playin");
   playBtn.classList.remove("notplayin");
+});
+
+audio.addEventListener("pause", (e) => {
+  animList.forEach((anim) => {
+    anim.style.animationPlayState = "paused";
+  });
+
+  playBtn.classList.add("notplayin");
+  playBtn.classList.remove("playin");
 });
 
 audio.addEventListener("ended", function stopAnim() {
@@ -335,7 +359,7 @@ audio.addEventListener("ended", function stopAnim() {
 function alterTime(xLoc) {
   let width = progress.clientWidth;
 
-  if (xLoc <= width && xLoc >= 0) {
+  if (xLoc <= width && xLoc > 0) {
     let progFactor = xLoc / width;
     let bubbleFactor = progFactor * 100;
     let subFactor = (14 / width) * 100;
@@ -359,7 +383,7 @@ function alterTime(xLoc) {
     let progBarr = progFactor * 100;
 
     progress.style.background = `linear-gradient(to right, var(--progBarColor) ${progBarr}%, white ${progBarr}%)`;
-  } else if (xLoc < 0) {
+  } else if (xLoc <= 0) {
     audio.currentTime = 0;
   } else {
     audio.currentTime = audio.duration;
@@ -461,8 +485,13 @@ audio.addEventListener("timeupdate", function updateProgress() {
 
   let now = ((curSec / sonDuration) * 100).toFixed(2);
 
-  progress.style.background = `linear-gradient(to right, var(--progBarColor)  ${now}%, white ${now}%)`;
-  progress.value = now;
+  if (!(now == "NaN")) {
+    progress.style.background = `linear-gradient(to right, var(--progBarColor)  ${now}%, white ${now}%)`;
+    progress.value = now;
+  } else {
+    progress.style.background = `linear-gradient(to right, var(--progBarColor)  0%, white 0%)`;
+    progress.value = 0;
+  }
 
   let displaySec = String(((curSec % 60) / 100).toFixed(2));
 

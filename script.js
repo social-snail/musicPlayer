@@ -44,40 +44,40 @@ const colorKeys = [
 const colorVals = [
   "rgb(170, 122, 158)",
   "#fff",
-  "rgb(143, 119, 156)",
-  "rgba(135, 87, 148, 0.555)",
+  "rgb(246, 240, 250)",
+  "rgba(201, 167, 191, 0.555)",
   "rgb(209, 144, 188)",
-  "rgb(214, 170, 170)",
-  "rgb(133, 103, 150)",
-  "rgb(218, 136, 136)",
+  "rgb(255, 249, 249)",
+  "rgb(221, 200, 217)",
+  "rgb(172, 78, 140)",
   "#fffc",
-  "palevioletred",
-  "rgb(223, 156, 156)",
-  "rgb(238,179,185)",
-  "rgb(241, 158, 172)",
+  "rgb(172, 78, 140)",
+  "rgb(192, 138, 171)",
+  "rgb(212, 195, 197)",
+  "rgb(192, 138, 171)",
   "1",
   "#fff3",
-  "rgb(250, 212, 212)",
-  "rgb(223, 156, 156)",
-  "rgb(238, 139, 139)",
-  "rgb(243, 188, 188)",
+  "rgb(243, 232, 232)",
+  "rgb(192, 138, 171)",
+  "rgb(197, 127, 156)",
+  "rgb(247, 208, 238)",
   "rgb(255, 235, 235)",
 ];
 
 const darkVals = [
-  "rgb(0, 0, 0)",
+  "rgba(0, 0, 0, 0.9)",
   "rgb(82, 56, 75)",
   "rgb(75, 17, 94)",
   "rgba(104, 95, 107, 0.555)",
   "rgb(66, 42, 59)",
   "rgb(214, 170, 170)",
-  "rgb(87, 60, 102)",
+  "rgb(91,60,101)",
   "rgb(241, 202, 202)",
   "#fff7",
   "rgb(247, 193, 211)",
   "rgb(230, 221, 221)",
   "rgb(133, 89, 118))",
-  "rgb(173, 95, 108)",
+  "rgb(223, 156, 156)",
   "0.8",
   "#fff2",
   "rgb(223, 156, 156)",
@@ -98,16 +98,23 @@ const toggleHouse = document.querySelector(".toggle-house");
 const toggleRound = document.querySelector(".toggle-round");
 
 let dark = false;
-const modeImg = document.querySelector(".mode-img");
+const modeImgLight = document.querySelector(".light");
+const modeImgDark = document.querySelector(".dark");
+const elements = document.querySelector(".complete-wrap");
 
 toggle.onclick = (e) => {
   dark = toggle.checked;
-  if (dark) {
-    toggleRound.style.left = "60%";
+  elements.style.transition = "1s ease";
 
-    modeImg.src = "./icons/dark.png";
-    modeImg.classList.add("dark");
-    modeImg.classList.remove("light");
+  setTimeout((e) => {
+    elements.style.transition = "";
+  }, 2000);
+
+  if (dark) {
+    toggleRound.style.left = "47%";
+
+    modeImgDark.style.opacity = "1";
+    modeImgLight.style.opacity = "0";
 
     floorShadow.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
 
@@ -117,11 +124,10 @@ toggle.onclick = (e) => {
   } else {
     toggleRound.style.left = "";
 
-    modeImg.src = "./icons/light.png";
-    modeImg.classList.add("light");
-    modeImg.classList.remove("dark");
+    modeImgDark.style.opacity = "0";
+    modeImgLight.style.opacity = "1";
 
-    floorShadow.style.backgroundColor = "rgba(0, 0, 0, 0.16)";
+    floorShadow.style.backgroundColor = "rgba(0, 0, 0, 0.12)";
 
     Object.keys(lightObj).forEach((key) => {
       document.documentElement.style.setProperty(key, lightObj[key]);

@@ -257,6 +257,7 @@ function prepFromTitle(song) {
     curSon = song;
 
     audio.src = "./audio/" + songs[song.id];
+    audio.load();
 
     btnVisib(curSon);
 

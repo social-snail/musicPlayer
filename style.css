@@ -660,6 +660,9 @@ h1 {
   position: absolute;
   width: 70%;
   height: 70%;
+
+  opacity: 0;
+  transition: opacity 4s ease;
 }
 
 .cfront {
@@ -680,6 +683,8 @@ h1 {
   width: 70%;
   height: 70%;
   transform: rotateZ(45deg) rotateX(90deg) translateZ(0.56em);
+  opacity: 0;
+  transition: opacity 4s ease;
 }
 
 .cbottom {
@@ -687,6 +692,8 @@ h1 {
   width: 70%;
   height: 70%;
   transform: rotateZ(45deg) rotateX(270deg) translateZ(0.56em);
+  opacity: 0;
+  transition: opacity 4s ease;
 }
 
 .floor {
@@ -716,6 +723,9 @@ h1 {
   top: 0.6em;
   left: 0.6em;
   filter: blur(5px);
+
+  opacity: 0;
+  transition: opacity 4s ease;
 
   animation-name: artShadow;
   animation-duration: var(--rotateSpeed);

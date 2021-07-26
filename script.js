@@ -142,6 +142,22 @@ const cube = document.querySelector(".cube");
 const artcon = document.querySelector(".artcon");
 const floorShadow = document.querySelector(".floor-shadow");
 
+const cfront = document.querySelector(".cfront");
+const cleft = document.querySelector(".cleft");
+const cright = document.querySelector(".cright");
+const cback = document.querySelector(".cback");
+const ctop = document.querySelector(".ctop");
+const cbottom = document.querySelector(".cbottom");
+
+const opac = [cfront, cleft, cright, cback, ctop, cbottom];
+
+setTimeout((e) => {
+  opac.forEach((side) => {
+    side.style.opacity = 1;
+    floorShadow.style.opacity = 1;
+  });
+}, 500);
+
 const logo = document.querySelector(".logoImg");
 const socials = document.querySelector(".socials");
 const icons = document.querySelector(".icons");

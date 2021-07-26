@@ -25,7 +25,7 @@
   --cubeBright: 1;
 
   --currentSongBack: #fff3;
-  --currentSongColor: rgb(238, 199, 199);
+  --currentSongColor: rgb(250, 212, 212);
   --currentSongPin: rgb(223, 156, 156);
 
   --floorGradFirst: rgb(238, 139, 139);
@@ -147,9 +147,30 @@ body {
   width: 10%;
   height: 2.3%;
   position: absolute;
-  right: 10%;
+  right: 12%;
   top: 4.5%;
   border-radius: 20px;
+  z-index: 6000;
+}
+
+.mode {
+  position: absolute;
+  left: -80%;
+  top: -25%;
+  z-index: 5000;
+  width: 30px;
+  height: 30px;
+}
+
+.light {
+  width: 80%;
+}
+
+.dark {
+  width: 65%;
+  position: absolute;
+  top: 5%;
+  left: 5%;
 }
 
 .toggle-house input[type="checkbox"] {
@@ -598,8 +619,6 @@ h1 {
   position: absolute;
   margin: 0.3em;
 
-  transition: 2s ease;
-
   animation-name: artRotate;
   animation-duration: var(--rotateSpeed);
   animation-timing-function: linear;
@@ -690,8 +709,6 @@ h1 {
   top: 0.6em;
   left: 0.6em;
   filter: blur(5px);
-
-  transition: 2s ease;
 
   animation-name: artShadow;
   animation-duration: var(--rotateSpeed);

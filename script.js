@@ -57,7 +57,7 @@ const colorVals = [
   "rgb(241, 158, 172)",
   "1",
   "#fff3",
-  "rgb(238, 199, 199)",
+  "rgb(250, 212, 212)",
   "rgb(223, 156, 156)",
   "rgb(238, 139, 139)",
   "rgb(243, 188, 188)",
@@ -98,20 +98,30 @@ const toggleHouse = document.querySelector(".toggle-house");
 const toggleRound = document.querySelector(".toggle-round");
 
 let dark = false;
-const elements = document.querySelector(".body-wrap");
+const modeImg = document.querySelector(".mode-img");
 
 toggle.onclick = (e) => {
   dark = toggle.checked;
-  elements.style.transition = "3s ease";
-
   if (dark) {
     toggleRound.style.left = "60%";
+
+    modeImg.src = "./icons/dark.png";
+    modeImg.classList.add("dark");
+    modeImg.classList.remove("light");
+
+    floorShadow.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
 
     Object.keys(darkObj).forEach((key) => {
       document.documentElement.style.setProperty(key, darkObj[key]);
     });
   } else {
     toggleRound.style.left = "";
+
+    modeImg.src = "./icons/light.png";
+    modeImg.classList.add("light");
+    modeImg.classList.remove("dark");
+
+    floorShadow.style.backgroundColor = "rgba(0, 0, 0, 0.16)";
 
     Object.keys(lightObj).forEach((key) => {
       document.documentElement.style.setProperty(key, lightObj[key]);

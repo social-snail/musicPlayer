@@ -379,9 +379,10 @@ audio.addEventListener("ended", function stopAnim() {
   let avoid = false;
 
   setTimeout((e) => {
-    let targ;
+    let targ = 0;
 
     if (!(curSon.id == 3)) {
+      avoid = false;
       targ = curSon.nextElementSibling;
       prepFromTitle(targ);
     } else {

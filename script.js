@@ -103,7 +103,7 @@ const modeImgDark = document.querySelector(".dark");
 const elements = document.querySelector(".complete-wrap");
 
 toggle.onclick = (e) => {
-  window.navigator.vibrate([50]);
+  window.navigator.vibrate([30]);
 
   dark = toggle.checked;
   elements.style.transition = "1s ease";
@@ -167,6 +167,8 @@ const icons = document.querySelector(".icons");
 let clickk = 0;
 
 logo.onclick = (e) => {
+  window.navigator.vibrate([30]);
+
   if (!clickk) {
     clickk = 1;
     socials.style.opacity = 1;
@@ -257,21 +259,29 @@ function prepFromTitle(song) {
 }
 
 resi.addEventListener("click", function strSong() {
+  window.navigator.vibrate([30]);
+
   prepFromTitle(resi);
   playFromPrep();
 });
 
 pati.addEventListener("click", function strSong() {
+  window.navigator.vibrate([30]);
+
   prepFromTitle(pati);
   playFromPrep();
 });
 
 joy.addEventListener("click", function strSong() {
+  window.navigator.vibrate([30]);
+
   prepFromTitle(joy);
   playFromPrep();
 });
 
 recu.addEventListener("click", function strSong() {
+  window.navigator.vibrate([30]);
+
   prepFromTitle(recu);
   playFromPrep();
 });
@@ -298,6 +308,8 @@ function btnVisib(curSon) {
 }
 
 prevBtn.addEventListener("click", function prevPrep() {
+  window.navigator.vibrate([30]);
+
   if (!audio.paused) {
     audio.pause();
   }
@@ -310,6 +322,8 @@ prevBtn.addEventListener("click", function prevPrep() {
 });
 
 nextBtn.addEventListener("click", function nextPrep() {
+  window.navigator.vibrate([30]);
+
   if (!audio.paused) {
     audio.pause();
     audio.currentTime = 0;
@@ -323,6 +337,8 @@ nextBtn.addEventListener("click", function nextPrep() {
 });
 
 playBtn.addEventListener("click", function playClick() {
+  window.navigator.vibrate([30]);
+
   if (!audio.paused) {
     audio.pause();
   } else {

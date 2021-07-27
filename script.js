@@ -103,6 +103,8 @@ const modeImgDark = document.querySelector(".dark");
 const elements = document.querySelector(".complete-wrap");
 
 toggle.onclick = (e) => {
+  window.navigator.vibrate([200]);
+
   dark = toggle.checked;
   elements.style.transition = "1s ease";
 
@@ -203,10 +205,10 @@ const songs = [
 ];
 
 const bpms = [
-  [0.5, 137, 105, 2, 8],
-  [0, 0, 175, 2, 4],
-  [0, 0, 140, 2, 2],
-  [0.571, 195, 155, 4, 8],
+  [0.5, 105, 2, 8],
+  [0, 175, 2, 4],
+  [0, 140, 2, 2],
+  [0.571, 155, 4, 8],
 ];
 
 const prevBtn = document.querySelector(".prev");
@@ -222,16 +224,7 @@ progress.value = 0.0;
 
 // PLAY AUDIO
 function playFromPrep() {
-  setTimeout((e) => {
-    animList.forEach((anim) => {
-      anim.style.animationPlayState = "running";
-    });
-
-    audio.play();
-
-    playBtn.classList.add("playin");
-    playBtn.classList.remove("notplayin");
-  }, 30);
+  audio.play();
 }
 
 const resi = document.querySelector(".resilience");
@@ -249,20 +242,18 @@ function prepFromTitle(song) {
     audio.pause();
   }
 
-  setTimeout((e) => {
-    curSon.classList.remove("current-song");
+  curSon.classList.remove("current-song");
 
-    song.classList.add("current-song");
+  song.classList.add("current-song");
 
-    curSon = song;
+  curSon = song;
 
-    audio.src = "./audio/" + songs[song.id];
-    audio.load();
+  audio.src = "./audio/" + songs[song.id];
+  audio.load();
 
-    btnVisib(curSon);
+  btnVisib(curSon);
 
-    progress.value = 0.0;
-  }, 10);
+  progress.value = 0.0;
 }
 
 resi.addEventListener("click", function strSong() {
@@ -311,12 +302,11 @@ prevBtn.addEventListener("click", function prevPrep() {
     audio.pause();
   }
 
-  playBtn.classList.add("notplayin");
-  playBtn.classList.remove("playin");
-
-  let prevSon = curSon.previousElementSibling;
-  prepFromTitle(prevSon);
-  playFromPrep();
+  setTimeout((e) => {
+    let prevSon = curSon.previousElementSibling;
+    prepFromTitle(prevSon);
+    playFromPrep();
+  }, 10);
 });
 
 nextBtn.addEventListener("click", function nextPrep() {
@@ -325,31 +315,18 @@ nextBtn.addEventListener("click", function nextPrep() {
     audio.currentTime = 0;
   }
 
-  playBtn.classList.add("notplayin");
-  playBtn.classList.remove("playin");
-
-  let nextSon = curSon.nextElementSibling;
-  prepFromTitle(nextSon);
-  playFromPrep();
+  setTimeout((e) => {
+    let nextSon = curSon.nextElementSibling;
+    prepFromTitle(nextSon);
+    playFromPrep();
+  }, 10);
 });
 
 playBtn.addEventListener("click", function playClick() {
   if (!audio.paused) {
     audio.pause();
-    playBtn.classList.add("notplayin");
-    playBtn.classList.remove("playin");
-
-    animList.forEach((anim) => {
-      anim.style.animationPlayState = "paused";
-    });
   } else {
     audio.play();
-    playBtn.classList.add("playin");
-    playBtn.classList.remove("notplayin");
-
-    animList.forEach((anim) => {
-      anim.style.animationPlayState = "running";
-    });
   }
 });
 
@@ -494,29 +471,17 @@ audio.addEventListener("loadeddata", function () {
   span.innerHTML = sonMin + ":" + sonSec[2] + sonSec[3];
 
   let bpmData = bpms[curSon.id];
-  let sonOffset = bpmData[0];
-  let animCont = bpmData[1];
-  let bpm = bpmData[2] / 60;
-  let scaleFact = bpmData[3];
-  let rotateFact = bpmData[4];
 
-  let bounceDur = animCont - sonOffset;
+  let bpm = bpmData[1] / 60;
+  let scaleFact = bpmData[2];
+  let rotateFact = bpmData[3];
 
-  if (animCont == 0) {
-    bounceDur = sonDuration - sonOffset;
-  }
   let bouncy = (1 / bpm) * scaleFact;
   let rotatey = (1 / bpm) * rotateFact * 8;
 
   document.documentElement.style.setProperty("--bounceSpeed", `${bouncy}s`);
 
   document.documentElement.style.setProperty("--rotateSpeed", `${rotatey}s`);
-
-  animDelay = sonOffset * 1000;
-
-  animList.forEach((anim) => {
-    anim.style.animationIterationCount = bpm * bounceDur;
-  });
 });
 
 audio.addEventListener("timeupdate", function updateProgress() {

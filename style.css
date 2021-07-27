@@ -121,14 +121,14 @@ body {
   height: 90%;
   margin: auto;
   margin-bottom: 5%;
-  box-shadow: 0.1em 0.1em 0.2em #0006, -0.01em -0.01em 0.04em 0.02em #fff;
+  box-shadow: 0.1em 0.1em 0.2em #0006, -0.03em -0.03em 0.02em 0.02em #fff;
   border-radius: 7px;
   animation-name: imgScl;
   animation-duration: var(--bounceSpeed);
   animation-timing-function: linear;
   animation-play-state: paused;
   animation-delay: 0s;
-  animation-iteration-count: 1;
+  animation-iteration-count: infinite;
   animation-fill-mode: backwards;
 }
 
@@ -525,7 +525,7 @@ h1 {
   animation-name: sceneRotate;
   animation-duration: var(--rotateSpeed);
   animation-timing-function: linear;
-  animation-iteration-count: 1;
+  animation-iteration-count: infinite;
   animation-play-state: paused;
   animation-delay: 0s;
   animation-fill-mode: backwards;
@@ -550,7 +550,7 @@ h1 {
   animation-name: cubeContract;
   animation-duration: var(--bounceSpeed);
   animation-timing-function: linear;
-  animation-iteration-count: 1;
+  animation-iteration-count: infinite;
   animation-play-state: paused;
   animation-delay: 0;
   animation-fill-mode: backwards;
@@ -630,7 +630,7 @@ h1 {
   animation-duration: var(--rotateSpeed);
   animation-timing-function: linear;
   animation-play-state: paused;
-  animation-iteration-count: 1;
+  animation-iteration-count: infinite;
   animation-delay: 0;
   animation-fill-mode: backwards;
 }
@@ -731,7 +731,7 @@ h1 {
   animation-duration: var(--rotateSpeed);
   animation-timing-function: linear;
   animation-play-state: paused;
-  animation-iteration-count: 1;
+  animation-iteration-count: infinite;
   animation-delay: 0s;
   animation-fill-mode: backwards;
 }

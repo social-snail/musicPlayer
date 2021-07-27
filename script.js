@@ -103,7 +103,7 @@ const modeImgDark = document.querySelector(".dark");
 const elements = document.querySelector(".complete-wrap");
 
 toggle.onclick = (e) => {
-  window.navigator.vibrate([200]);
+  window.navigator.vibrate([50]);
 
   dark = toggle.checked;
   elements.style.transition = "1s ease";

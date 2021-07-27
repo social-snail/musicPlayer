@@ -326,7 +326,6 @@ nextBtn.addEventListener("click", function nextPrep() {
 
   if (!audio.paused) {
     audio.pause();
-    audio.currentTime = 0;
   }
 
   setTimeout((e) => {
@@ -345,6 +344,36 @@ playBtn.addEventListener("click", function playClick() {
     audio.play();
   }
 });
+
+document.body.onkeydown = (e) => {
+  if (e.keyCode == 32) {
+    if (!audio.paused) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+  } else if (e.keyCode == 37) {
+    if (!audio.paused) {
+      audio.pause();
+    }
+
+    setTimeout((e) => {
+      let prevSon = curSon.previousElementSibling;
+      prepFromTitle(prevSon);
+      playFromPrep();
+    }, 10);
+  } else if (e.keyCode == 39) {
+    if (!audio.paused) {
+      audio.pause();
+    }
+
+    setTimeout((e) => {
+      let nextSon = curSon.nextElementSibling;
+      prepFromTitle(nextSon);
+      playFromPrep();
+    }, 10);
+  }
+};
 
 audio.addEventListener("playing", (e) => {
   animList.forEach((anim) => {

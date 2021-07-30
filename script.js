@@ -18,6 +18,22 @@ if (viewHeight > 700) {
 bodyBlock.style.top = topp;
 bodyBlock.style.bottom = bottomm;
 
+const cfront = document.querySelector(".cfront");
+const cleft = document.querySelector(".cleft");
+const cright = document.querySelector(".cright");
+const cback = document.querySelector(".cback");
+const ctop = document.querySelector(".ctop");
+const cbottom = document.querySelector(".cbottom");
+
+const opac = [cfront, cleft, cright, cback, ctop, cbottom];
+
+setTimeout((e) => {
+  opac.forEach((side) => {
+    side.style.opacity = 1;
+    floorShadow.style.opacity = 1;
+  });
+}, 500);
+
 const colorKeys = [
   "--bodyColor",
   "--bodyColorSecond",
@@ -143,22 +159,7 @@ const scene = document.querySelector(".scene");
 const cube = document.querySelector(".cube");
 const artcon = document.querySelector(".artcon");
 const floorShadow = document.querySelector(".floor-shadow");
-
-const cfront = document.querySelector(".cfront");
-const cleft = document.querySelector(".cleft");
-const cright = document.querySelector(".cright");
-const cback = document.querySelector(".cback");
-const ctop = document.querySelector(".ctop");
-const cbottom = document.querySelector(".cbottom");
-
-const opac = [cfront, cleft, cright, cback, ctop, cbottom];
-
-setTimeout((e) => {
-  opac.forEach((side) => {
-    side.style.opacity = 1;
-    floorShadow.style.opacity = 1;
-  });
-}, 500);
+const artimg = document.querySelectorAll(".internal-image");
 
 const logo = document.querySelector(".logoImg");
 const socials = document.querySelector(".socials");
@@ -190,14 +191,6 @@ logo.onclick = (e) => {
 };
 
 const animList = [logo, scene, cube, artcon, floorShadow];
-
-const animNames = [
-  "imgScl",
-  "sceneRotate",
-  "cubeContract",
-  "artRotate",
-  "artShadow",
-];
 
 const songs = [
   "Resilience(Master).mp3",
@@ -357,27 +350,34 @@ document.body.onkeydown = (e) => {
       audio.pause();
     }
 
-    setTimeout((e) => {
-      let prevSon = curSon.previousElementSibling;
-      prepFromTitle(prevSon);
-      playFromPrep();
-    }, 10);
+    if (!(curSon.id == 0)) {
+      setTimeout((e) => {
+        let prevSon = curSon.previousElementSibling;
+        prepFromTitle(prevSon);
+        playFromPrep();
+      }, 10);
+    }
   } else if (e.keyCode == 39) {
     if (!audio.paused) {
       audio.pause();
     }
 
-    setTimeout((e) => {
-      let nextSon = curSon.nextElementSibling;
-      prepFromTitle(nextSon);
-      playFromPrep();
-    }, 10);
+    if (!(curSon.id == 3)) {
+      setTimeout((e) => {
+        let nextSon = curSon.nextElementSibling;
+        prepFromTitle(nextSon);
+        playFromPrep();
+      }, 10);
+    }
   }
 };
 
 audio.addEventListener("playing", (e) => {
   animList.forEach((anim) => {
     anim.style.animationPlayState = "running";
+  });
+  artimg.forEach((img) => {
+    img.style.animationPlayState = "running";
   });
 
   playBtn.classList.add("playin");
@@ -388,6 +388,9 @@ audio.addEventListener("pause", (e) => {
   animList.forEach((anim) => {
     anim.style.animationPlayState = "paused";
   });
+  artimg.forEach((img) => {
+    img.style.animationPlayState = "paused";
+  });
 
   playBtn.classList.add("notplayin");
   playBtn.classList.remove("playin");
@@ -396,6 +399,9 @@ audio.addEventListener("pause", (e) => {
 audio.addEventListener("ended", function stopAnim() {
   animList.forEach((anim) => {
     anim.style.animationPlayState = "paused";
+  });
+  artimg.forEach((img) => {
+    img.style.animationPlayState = "paused";
   });
 
   let avoid = false;

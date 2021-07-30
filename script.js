@@ -340,12 +340,16 @@ playBtn.addEventListener("click", function playClick() {
 
 document.body.onkeydown = (e) => {
   if (e.keyCode == 32) {
+    e.preventDefault();
+
     if (!audio.paused) {
       audio.pause();
     } else {
       audio.play();
     }
   } else if (e.keyCode == 37) {
+    e.preventDefault();
+
     if (!audio.paused) {
       audio.pause();
     }
@@ -358,6 +362,8 @@ document.body.onkeydown = (e) => {
       }, 10);
     }
   } else if (e.keyCode == 39) {
+    e.preventDefault();
+
     if (!audio.paused) {
       audio.pause();
     }
